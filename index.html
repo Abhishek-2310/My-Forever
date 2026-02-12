@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>For Chakara 💘</title>
+  <style>
+    :root { --bg:#0b0b12; --card:#151528; --text:#f6f6ff; --muted:#b9b9d6; --accent:#ff4d8d; --good:#4dffb5; --bad:#ff6b6b; }
+    * { box-sizing: border-box; }
+    body {
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 800px at 70% 10%, rgba(255,77,141,.25), transparent 60%),
+                  radial-gradient(900px 600px at 10% 30%, rgba(77,255,181,.14), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      min-height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      padding: 20px;
+    }
+    .wrap { width:min(760px, 100%); }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+      position: relative;
+      overflow:hidden;
+    }
+    .topline { display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .badge {
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 8px 12px; border-radius: 999px;
+      background: rgba(255,77,141,.12);
+      border: 1px solid rgba(255,77,141,.25);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .progress {
+      flex:1;
+      height: 10px;
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      overflow:hidden;
+      min-width: 180px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(255,77,141,.95), rgba(77,255,181,.85));
+      transition: width .35s ease;
+    }
+    h1 { margin: 14px 0 4px; font-size: clamp(24px, 3.8vw, 40px); }
+    p { margin: 8px 0; color: var(--muted); line-height: 1.5; }
+    .screen { display:none; }
+    .screen.active { display:block; }
+    .btnrow { display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
+    button {
+      border: 0; cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.12);
+      font-weight: 650;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    }
+    button:hover { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    button:active { transform: translateY(1px); }
+    .primary {
+      background: rgba(255,77,141,.18);
+      border-color: rgba(255,77,141,.35);
+    }
+    .primary:hover { background: rgba(255,77,141,.24); }
+    .ghost { background: transparent; }
+    .qbox {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .choices { display:grid; gap:10px; margin-top: 12px; }
+    .choice {
+      text-align:left;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .choice.correct { border-color: rgba(77,255,181,.55); background: rgba(77,255,181,.10); }
+    .choice.wrong   { border-color: rgba(255,107,107,.55); background: rgba(255,107,107,.10); }
+    .tiny { font-size: 13px; color: rgba(255,255,255,.7); }
+    .divider { height:1px; background: rgba(255,255,255,.10); margin: 16px 0; }
+    .final {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,77,141,.12);
+      border: 1px solid rgba(255,77,141,.28);
+    }
+    .heartfloat {
+      position:absolute; inset:-40px;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,77,141,.20) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 30%, rgba(77,255,181,.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 60% 70%, rgba(255,255,255,.08) 0 2px, transparent 3px);
+      filter: blur(.2px);
+      opacity:.8;
+      pointer-events:none;
+      transform: rotate(2deg);
+    }
+    input {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline: none;
+      font-size: 16px;
+    }
+    .note {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.20);
+      color: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.04);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="heartfloat"></div>
+
+      <div class="topline">
+        <div class="badge">💌 Love Quest</div>
+        <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
+        <div class="badge" id="stepLabel">Step 1/5</div>
+      </div>
+
+      <!-- Screen 1: intro -->
+      <section class="screen active" id="s0">
+        <h1>Hi <span id="herName">Chakara</span> 💘</h1>
+        <p id="introText">
+          I made you a tiny game from far away. Every level unlocks a little piece of us.
+        </p>
+        <div class="note tiny">
+          Tip: Works on your phone. Bonus points if you play it with a smile 😄
+        </div>
+        <div class="btnrow">
+          <button class="primary" id="startBtn">Start</button>
+        </div>
+      </section>
+
+      <!-- Screen 2: multiple choice -->
+      <section class="screen" id="s1">
+        <h1>Level 1: The Beginning</h1>
+        <p id="q1Text"></p>
+        <div class="qbox">
+          <div class="choices" id="q1Choices"></div>
+          <div class="tiny" id="q1Hint"></div>
+        </div>
+        <div class="btnrow">
+          <button class="ghost" id="back1">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 3: short answer -->
+      <section class="screen" id="s2">
+        <h1>Level 2: The Nickname</h1>
+        <p id="q2Text"></p>
+        <div class="qbox">
+          <input id="q2Input" placeholder="Type it here..." autocomplete="off" />
+          <div class="btnrow">
+            <button class="primary" id="q2Submit">Unlock</button>
+            <button class="ghost" id="q2Skip">I forgot 🙈</button>
+          </div>
+          <div class="tiny" id="q2Feedback"></div>
+        </div>
+        <div class="btnrow">
+          <button class="ghost" id="back2">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 4: pick-a-card -->
+      <section class="screen" id="s3">
+        <h1>Level 3: Pick a Card</h1>
+        <p>Choose one. It reveals something I love about you (and us).</p>
+        <div class="qbox">
+          <div class="choices">
+            <button class="choice" data-card="0">🔥 Card A</button>
+            <button class="choice" data-card="1">🏡 Card B</button>
+            <button class="choice" data-card="2">💞 Card C</button>
+          </div>
+          <div class="note" id="cardReveal" style="display:none;"></div>
+        </div>
+        <div class="btnrow">
+          <button class="primary" id="toFinal" disabled>Continue</button>
+          <button class="ghost" id="back3">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 5: final reveal -->
+      <section class="screen" id="s4">
+        <h1>Final Door 🔐</h1>
+        <p>Type the secret phrase to open it:</p>
+        <div class="qbox">
+          <input id="finalInput" placeholder="" autocomplete="off" />
+          <div class="btnrow">
+            <button class="primary" id="finalSubmit">Open</button>
+          </div>
+          <div class="tiny" id="finalFeedback"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="final" id="finalReveal" style="display:none;">
+          <h1 style="margin-top:0;">Chakara… 💍</h1>
+          <p id="proposalText" style="color:rgba(255,255,255,.88);"></p>
+          <p style="color:rgba(255,255,255,.92); font-weight:700; margin-top:12px;">
+            Will you marry me?
+          </p>
+        </div>
+        <div class="btnrow">
+          <button class="ghost" id="restart">Play Again</button>
+        </div>
+      </section>
+    </div>
+    <p class="tiny" style="text-align:center; margin-top:10px;">
+      Made with ❤️ from <span id="yourName">[Your Name]</span>
+    </p>
+  </div>
+
+  <script>
+    // ========= CUSTOMIZED FOR YOU =========
+    const CONFIG = {
+      herName: "Chakara",          // shows on the first screen
+      yourName: "[Your Name]",     // put your name here
+
+      introText:
+        "I made you a tiny game from far away. Every level unlocks a little piece of us — and yes, there’s a final door 😌",
+
+      // Level 1 (multiple choice)
+      q1: {
+        text: "When did we start talking to each other?",
+        choices: [
+          { text: "December 22 (last year)", correct: true  },
+          { text: "January 18",              correct: false },
+          { text: "February 14",             correct: false },
+          { text: "I don’t remember 😅",      correct: false }
+        ],
+        hint: "Hint: it was a date that started everything."
+      },
+
+      // Level 2 (short answer)
+      q2: {
+        text: "What nickname do I call you?",
+        accepted: ["chakara", "chakkara", "chakraa"], // add variants if you use them
+        skipReveal: "It’s okay 😌 I call you that because it’s *you* — and it makes me smile every time."
+      },
+
+      // Level 3 (cards)
+      cards: [
+        "Remember when I grilled you in the beginning and it put you off? 😅 Now you’ve been grilling me ever since… and honestly, I love it. 🔥",
+        "January 18 at your home wasn’t just a place — it felt like a moment I’ll keep forever. 🏡",
+        "Even with distance, you make it feel like we’re on the same side of the world. Always. 💞"
+      ],
+
+      // Final phrase to open the proposal
+      final: {
+        phrase: "jan 18", // easy to type on mobile
+        hint: 'Hint: type the day we first met (example: "jan 18")'
+      },
+
+      proposalText:
+        "From December 22 to every day after… you’ve become my favorite person. Even across countries, you’ve felt close — and I want the rest of my life to be this: choosing you, again and again."
+    };
+    // =====================================
+
+    const screens = ["s0","s1","s2","s3","s4"].map(id => document.getElementById(id));
+    const bar = document.getElementById("bar");
+    const stepLabel = document.getElementById("stepLabel");
+
+    let step = 0; // 0..4
+
+    function showStep(n){
+      step = n;
+      screens.forEach((s,i)=>s.classList.toggle("active", i===n));
+      const pct = (n/4)*100;
+      bar.style.width = pct + "%";
+      stepLabel.textContent = `Step ${n+1}/5`;
+    }
+
+    // Set names/text
+    document.getElementById("herName").textContent = CONFIG.herName;
+    document.getElementById("yourName").textContent = CONFIG.yourName;
+    document.getElementById("introText").textContent = CONFIG.introText;
+
+    // Level 1 setup
+    document.getElementById("q1Text").textContent = CONFIG.q1.text;
+    document.getElementById("q1Hint").textContent = CONFIG.q1.hint;
+
+    const q1Choices = document.getElementById("q1Choices");
+    function renderQ1(){
+      q1Choices.innerHTML = "";
+      CONFIG.q1.choices.forEach((c) => {
+        const b = document.createElement("button");
+        b.className = "choice";
+        b.textContent = c.text;
+        b.addEventListener("click", () => {
+          [...q1Choices.querySelectorAll("button")].forEach(x => x.disabled = true);
+          if(c.correct){
+            b.classList.add("correct");
+            setTimeout(()=>showStep(2), 550);
+          } else {
+            b.classList.add("wrong");
+            document.getElementById("q1Hint").textContent = "Nope 😄 Try again (hit Back and re-enter).";
+          }
+        });
+        q1Choices.appendChild(b);
+      });
+    }
+    renderQ1();
+
+    // Buttons
+    document.getElementById("startBtn").onclick = () => showStep(1);
+    document.getElementById("back1").onclick = () => { renderQ1(); showStep(0); };
+    document.getElementById("back2").onclick = () => showStep(1);
+    document.getElementById("back3").onclick = () => showStep(2);
+
+    // Level 2 logic
+    document.getElementById("q2Text").textContent = CONFIG.q2.text;
+    const q2Input = document.getElementById("q2Input");
+    const q2Feedback = document.getElementById("q2Feedback");
+
+    function normalize(s){ return (s||"").trim().toLowerCase(); }
+
+    document.getElementById("q2Submit").onclick = () => {
+      const val = normalize(q2Input.value);
+      const ok = CONFIG.q2.accepted.map(normalize).includes(val);
+      if(ok){
+        q2Feedback.textContent = "Correct 😌 (my favorite nickname)";
+        q2Feedback.style.color = "rgba(77,255,181,.9)";
+        setTimeout(()=>showStep(3), 500);
+      } else {
+        q2Feedback.textContent = "Not quite 😅 Try spelling it the way you like (or hit “I forgot”).";
+        q2Feedback.style.color = "rgba(255,255,255,.72)";
+      }
+    };
+
+    document.getElementById("q2Skip").onclick = () => {
+      q2Feedback.textContent = CONFIG.q2.skipReveal;
+      q2Feedback.style.color = "rgba(255,255,255,.78)";
+      setTimeout(()=>showStep(3), 700);
+    };
+
+    // Level 3 cards
+    const reveal = document.getElementById("cardReveal");
+    const toFinal = document.getElementById("toFinal");
+
+    document.querySelectorAll("[data-card]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.getAttribute("data-card"));
+        reveal.style.display = "block";
+        reveal.textContent = CONFIG.cards[idx] || "I love you.";
+        toFinal.disabled = false;
+      });
+    });
+
+    toFinal.onclick = () => showStep(4);
+
+    // Final door
+    const finalInput = document.getElementById("finalInput");
+    const finalFeedback = document.getElementById("finalFeedback");
+    const finalReveal = document.getElementById("finalReveal");
+    document.getElementById("proposalText").textContent = CONFIG.proposalText;
+
+    finalInput.placeholder = CONFIG.final.hint;
+
+    document.getElementById("finalSubmit").onclick = () => {
+      const val = normalize(finalInput.value);
+      if(val === normalize(CONFIG.final.phrase)){
+        finalFeedback.textContent = "Unlocked 💘";
+        finalFeedback.style.color = "rgba(77,255,181,.9)";
+        finalReveal.style.display = "block";
+        burstHearts();
+      } else {
+        finalFeedback.textContent = "Wrong phrase 😄 " + CONFIG.final.hint;
+        finalFeedback.style.color = "rgba(255,255,255,.75)";
+      }
+    };
+
+    document.getElementById("restart").onclick = () => {
+      q2Input.value = "";
+      q2Feedback.textContent = "";
+      reveal.style.display = "none";
+      reveal.textContent = "";
+      toFinal.disabled = true;
+      finalInput.value = "";
+      finalFeedback.textContent = "";
+      finalReveal.style.display = "none";
+      document.getElementById("q1Hint").textContent = CONFIG.q1.hint;
+      renderQ1();
+      showStep(0);
+    };
+
+    function burstHearts(){
+      const emojis = ["💘","💗","💞","💝","✨","🌙"];
+      for(let i=0;i<28;i++){
+        const s = document.createElement("div");
+        s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        s.style.position = "fixed";
+        s.style.left = (Math.random()*100) + "vw";
+        s.style.top = "110vh";
+        s.style.fontSize = (14 + Math.random()*26) + "px";
+        s.style.transition = "transform 1.6s ease, opacity 1.6s ease";
+        s.style.zIndex = 9999;
+        document.body.appendChild(s);
+        requestAnimationFrame(()=>{
+          s.style.transform = `translateY(-140vh) rotate(${(Math.random()*180-90)}deg)`;
+          s.style.opacity = "0";
+        });
+        setTimeout(()=>s.remove(), 1700);
+      }
+    }
+  </script>
+</body>
+</html>
