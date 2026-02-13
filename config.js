@@ -30,8 +30,8 @@ window.CONFIG = {
   loveFirst: {
     text: "Who said “I love you” first?",
     options: ["Abhiii", "Chakkoo"],
-    revealA: "Okay okay… if it was me, then I meant it with my whole heart. 💗",
-    revealB: "If it was you… then you basically started my favorite chapter. 💞"
+    correct: "Abhiii",
+    reveal: "Okay okay… it was me and I meant it with my whole heart. 💗"
   },
 
   // Level 4
