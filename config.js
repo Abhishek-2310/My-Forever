@@ -26,7 +26,15 @@ window.CONFIG = {
       "Whatever you pick… I love calling you names because it’s my way of saying: you’re mine, you’re special, and I’m obsessed with you. 💞"
   },
 
-  // Level 3
+  // Level 3 (no wrong answer)
+  loveFirst: {
+    text: "Who said “I love you” first?",
+    options: ["Abhiii", "Chakkoo"],
+    revealA: "Okay okay… if it was me, then I meant it with my whole heart. 💗",
+    revealB: "If it was you… then you basically started my favorite chapter. 💞"
+  },
+
+  // Level 4
   q3: {
     text: "Who started the grilling first?",
     choices: [
@@ -57,6 +65,26 @@ window.CONFIG = {
       reveal: "Anything with you becomes my favorite day."
     }
   ],
+
+  // Countdown choice (no wrong answers)
+  countdown: {
+    seconds: 6,
+    prompt: "Quick! Pick one before the timer ends 😳",
+    options: ["Hug 🤍", "Forehead kiss 🫶", "Hold hands 🥺", "Stare at you like an idiot 😭"]
+  },
+
+  // Spin-the-wheel date ideas
+  wheel: {
+    prompt: "Spin the wheel — whatever it picks, we’ll do it together soon 😌",
+    options: [
+      "Playlist swap 🎵 (send me 3 songs that feel like us)",
+      "Movie night 🎬 (pick a movie and we press play together)",
+      "Cooking together 🍝 (same recipe, same time)",
+      "Photo dump 📸 (send 3 pics from your day)",
+      "Truth hour 💬 (one honest question each)",
+      "Voice note mission 🎙️ (say ‘forever’ in 5 seconds)"
+    ]
+  },
 
   // Memory cards
   cards: [
