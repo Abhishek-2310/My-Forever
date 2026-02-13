@@ -3,162 +3,191 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>For Chakara 💘</title>
+  <title>For Chakkoo 💘</title>
   <style>
-    :root { --bg:#0b0b12; --card:#151528; --text:#f6f6ff; --muted:#b9b9d6; --accent:#ff4d8d; --good:#4dffb5; --bad:#ff6b6b; }
-    * { box-sizing: border-box; }
-    body {
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1200px 800px at 70% 10%, rgba(255,77,141,.25), transparent 60%),
-                  radial-gradient(900px 600px at 10% 30%, rgba(77,255,181,.14), transparent 60%),
-                  var(--bg);
-      color: var(--text);
+    :root{
+      --bg:#0b0b12; --text:#f6f6ff; --muted:#b9b9d6;
+      --accent:#ff4d8d; --good:#4dffb5; --bad:#ff6b6b;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:
+        radial-gradient(1200px 800px at 70% 10%, rgba(255,77,141,.25), transparent 60%),
+        radial-gradient(900px 600px at 10% 30%, rgba(77,255,181,.14), transparent 60%),
+        var(--bg);
+      color:var(--text);
       min-height:100vh;
       display:flex; align-items:center; justify-content:center;
-      padding: 20px;
+      padding:20px;
     }
-    .wrap { width:min(760px, 100%); }
-    .card {
+    .wrap{ width:min(820px,100%); }
+    .card{
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 16px 50px rgba(0,0,0,.45);
-      position: relative;
-      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:0 16px 50px rgba(0,0,0,.45);
+      position:relative; overflow:hidden;
     }
-    .topline { display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-    .badge {
-      display:inline-flex; gap:8px; align-items:center;
-      padding: 8px 12px; border-radius: 999px;
-      background: rgba(255,77,141,.12);
-      border: 1px solid rgba(255,77,141,.25);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .progress {
-      flex:1;
-      height: 10px;
-      background: rgba(255,255,255,.08);
-      border-radius: 999px;
-      overflow:hidden;
-      min-width: 180px;
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, rgba(255,77,141,.95), rgba(77,255,181,.85));
-      transition: width .35s ease;
-    }
-    h1 { margin: 14px 0 4px; font-size: clamp(24px, 3.8vw, 40px); }
-    p { margin: 8px 0; color: var(--muted); line-height: 1.5; }
-    .screen { display:none; }
-    .screen.active { display:block; }
-    .btnrow { display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
-    button {
-      border: 0; cursor:pointer;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,.12);
-      font-weight: 650;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
-    }
-    button:hover { background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
-    button:active { transform: translateY(1px); }
-    .primary {
-      background: rgba(255,77,141,.18);
-      border-color: rgba(255,77,141,.35);
-    }
-    .primary:hover { background: rgba(255,77,141,.24); }
-    .ghost { background: transparent; }
-    .qbox {
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.18);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .choices { display:grid; gap:10px; margin-top: 12px; }
-    .choice {
-      text-align:left;
-      padding: 12px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .choice.correct { border-color: rgba(77,255,181,.55); background: rgba(77,255,181,.10); }
-    .choice.wrong   { border-color: rgba(255,107,107,.55); background: rgba(255,107,107,.10); }
-    .tiny { font-size: 13px; color: rgba(255,255,255,.7); }
-    .divider { height:1px; background: rgba(255,255,255,.10); margin: 16px 0; }
-    .final {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,77,141,.12);
-      border: 1px solid rgba(255,77,141,.28);
-    }
-    .heartfloat {
+    .sparkle{
       position:absolute; inset:-40px;
       background-image:
         radial-gradient(circle at 20% 20%, rgba(255,77,141,.20) 0 2px, transparent 3px),
         radial-gradient(circle at 80% 30%, rgba(77,255,181,.14) 0 2px, transparent 3px),
         radial-gradient(circle at 60% 70%, rgba(255,255,255,.08) 0 2px, transparent 3px);
-      filter: blur(.2px);
-      opacity:.8;
-      pointer-events:none;
-      transform: rotate(2deg);
+      opacity:.85; pointer-events:none; transform: rotate(2deg);
     }
-    input {
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
+    .topline{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(255,77,141,.12);
+      border:1px solid rgba(255,77,141,.25);
+      font-weight:650; font-size:14px;
+    }
+    .progress{
+      flex:1; min-width:180px;
+      height:10px; border-radius:999px; overflow:hidden;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .bar{
+      height:100%; width:0%;
+      background: linear-gradient(90deg, rgba(255,77,141,.95), rgba(77,255,181,.85));
+      transition: width .35s ease;
+    }
+
+    h1{ margin: 14px 0 6px; font-size: clamp(24px, 3.8vw, 40px); }
+    p{ margin: 8px 0; color:var(--muted); line-height:1.55; }
+    .tiny{ font-size:13px; color: rgba(255,255,255,.72); }
+    .note{
+      margin-top:10px;
+      padding:12px;
+      border-radius:14px;
+      border:1px dashed rgba(255,255,255,.20);
+      color: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.04);
+    }
+    .divider{ height:1px; background: rgba(255,255,255,.10); margin:16px 0; }
+
+    .screen{ display:none; }
+    .screen.active{ display:block; }
+
+    .qbox{
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .choices{ display:grid; gap:10px; margin-top:12px; }
+    button{
+      border:0; cursor:pointer;
+      padding:12px 14px;
+      border-radius:14px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:700;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      text-align:left;
+    }
+    button:hover{ background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.18); }
+    button:active{ transform: translateY(1px); }
+    .primary{
+      background: rgba(255,77,141,.18);
+      border-color: rgba(255,77,141,.35);
+      text-align:center;
+    }
+    .primary:hover{ background: rgba(255,77,141,.24); }
+    .ghost{ background: transparent; text-align:center; }
+
+    .choice.correct{ border-color: rgba(77,255,181,.55); background: rgba(77,255,181,.10); }
+    .choice.wrong{ border-color: rgba(255,107,107,.55); background: rgba(255,107,107,.10); }
+
+    .btnrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       color: var(--text);
-      outline: none;
-      font-size: 16px;
+      outline:none;
+      font-size:16px;
     }
-    .note {
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px dashed rgba(255,255,255,.20);
-      color: rgba(255,255,255,.85);
+
+    /* Grill meter */
+    .meterWrap{
+      margin-top:14px;
+      padding:12px;
+      border-radius:16px;
       background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .meterTop{ display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .meter{
+      margin-top:10px;
+      height:12px;
+      border-radius:999px;
+      overflow:hidden;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .meterBar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(77,255,181,.85), rgba(255,77,141,.95));
+      transition: width .25s ease;
+    }
+
+    .final{
+      padding:16px;
+      border-radius:18px;
+      background: rgba(255,77,141,.12);
+      border: 1px solid rgba(255,77,141,.28);
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="heartfloat"></div>
+      <div class="sparkle"></div>
 
       <div class="topline">
         <div class="badge">💌 Love Quest</div>
         <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
-        <div class="badge" id="stepLabel">Step 1/5</div>
+        <div class="badge" id="stepLabel">Step 1/6</div>
       </div>
 
-      <!-- Screen 1: intro -->
+      <!-- Screen 0: intro -->
       <section class="screen active" id="s0">
-        <h1>Hi <span id="herName">Chakara</span> 💘</h1>
-        <p id="introText">
-          I made you a tiny game from far away. Every level unlocks a little piece of us.
-        </p>
-        <div class="note tiny">
-          Tip: Works on your phone. Bonus points if you play it with a smile 😄
+        <h1>Hi <span id="herName">Chakkoo</span> 💘</h1>
+        <p id="introText"></p>
+
+        <div class="meterWrap" aria-label="Grill Meter">
+          <div class="meterTop">
+            <div><b>🔥 Grill Meter</b> <span class="tiny">(fills up when you get it wrong 😭)</span></div>
+            <div class="tiny">Level: <span id="grillLevel">0</span>/10</div>
+          </div>
+          <div class="meter"><div class="meterBar" id="grillBar"></div></div>
+          <div class="tiny" id="grillMsg" style="margin-top:8px;">Status: peaceful… for now 😌</div>
         </div>
+
+        <div class="note tiny">
+          Tip: Works on phone. You can screenshot your score and roast me later 😅
+        </div>
+
         <div class="btnrow">
           <button class="primary" id="startBtn">Start</button>
         </div>
       </section>
 
-      <!-- Screen 2: multiple choice -->
+      <!-- Screen 1: MCQ -->
       <section class="screen" id="s1">
-        <h1>Level 1: The Beginning</h1>
+        <h1>Level 1: The Start</h1>
         <p id="q1Text"></p>
         <div class="qbox">
           <div class="choices" id="q1Choices"></div>
@@ -169,7 +198,7 @@
         </div>
       </section>
 
-      <!-- Screen 3: short answer -->
+      <!-- Screen 2: Short answer -->
       <section class="screen" id="s2">
         <h1>Level 2: The Nickname</h1>
         <p id="q2Text"></p>
@@ -186,26 +215,54 @@
         </div>
       </section>
 
-      <!-- Screen 4: pick-a-card -->
+      <!-- Screen 3: Grill joke -->
       <section class="screen" id="s3">
-        <h1>Level 3: Pick a Card</h1>
-        <p>Choose one. It reveals something I love about you (and us).</p>
+        <h1>Level 3: Who Started The Grilling?</h1>
+        <p>Let’s be honest 😅</p>
         <div class="qbox">
-          <div class="choices">
-            <button class="choice" data-card="0">🔥 Card A</button>
-            <button class="choice" data-card="1">🏡 Card B</button>
-            <button class="choice" data-card="2">💞 Card C</button>
-          </div>
-          <div class="note" id="cardReveal" style="display:none;"></div>
+          <div class="choices" id="q3Choices"></div>
+          <div class="note" id="q3Reveal" style="display:none;"></div>
         </div>
         <div class="btnrow">
-          <button class="primary" id="toFinal" disabled>Continue</button>
+          <button class="primary" id="toWouldYouRather" disabled>Continue</button>
           <button class="ghost" id="back3">Back</button>
         </div>
       </section>
 
-      <!-- Screen 5: final reveal -->
+      <!-- Screen 4: Would you rather -->
       <section class="screen" id="s4">
+        <h1>Level 4: Would You Rather?</h1>
+        <p>No wrong answers. Just vibes.</p>
+        <div class="qbox">
+          <div class="choices" id="wyrChoices"></div>
+          <div class="note" id="wyrReveal" style="display:none;"></div>
+        </div>
+        <div class="btnrow">
+          <button class="primary" id="toMemoryCard" disabled>Continue</button>
+          <button class="ghost" id="back4">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 5: Memory card -->
+      <section class="screen" id="s5">
+        <h1>Level 5: Pick a Memory</h1>
+        <p>Choose one. It reveals something I’m holding close.</p>
+        <div class="qbox">
+          <div class="choices">
+            <button class="choice" data-card="0">📅 December 22</button>
+            <button class="choice" data-card="1">🏠 January 18</button>
+            <button class="choice" data-card="2">🔥 The Grilling Era</button>
+          </div>
+          <div class="note" id="cardReveal" style="display:none;"></div>
+        </div>
+        <div class="btnrow">
+          <button class="primary" id="toFinal" disabled>Final Door</button>
+          <button class="ghost" id="back5">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 6: final -->
+      <section class="screen" id="s6">
         <h1>Final Door 🔐</h1>
         <p>Type the secret phrase to open it:</p>
         <div class="qbox">
@@ -215,82 +272,136 @@
           </div>
           <div class="tiny" id="finalFeedback"></div>
         </div>
+
         <div class="divider"></div>
+
         <div class="final" id="finalReveal" style="display:none;">
-          <h1 style="margin-top:0;">Chakara… 💍</h1>
+          <h1 style="margin-top:0;">Chakkoo… 💍</h1>
           <p id="proposalText" style="color:rgba(255,255,255,.88);"></p>
-          <p style="color:rgba(255,255,255,.92); font-weight:700; margin-top:12px;">
+          <p style="color:rgba(255,255,255,.92); font-weight:800; margin-top:12px;">
             Will you marry me?
           </p>
+          <p class="tiny" style="margin-top:10px;">
+            (If you say yes, I’m ready to be grilled for life 😌🔥)
+          </p>
         </div>
+
         <div class="btnrow">
           <button class="ghost" id="restart">Play Again</button>
         </div>
       </section>
     </div>
+
     <p class="tiny" style="text-align:center; margin-top:10px;">
-      Made with ❤️ from <span id="yourName">[Your Name]</span>
+      Made with ❤️ from <span id="yourName">Abhiii</span>
     </p>
   </div>
 
   <script>
-    // ========= CUSTOMIZED FOR YOU =========
+    // ========= CUSTOMIZED =========
     const CONFIG = {
-  herName: "Chakkoo",
-  yourName: "Abhiii",
+      herName: "Chakkoo",
+      yourName: "Abhiii",
 
-  introText:
-    "Hi Chakkoo 💖 I made this little game for you — from far away — because even distance couldn’t stop me from doing something special for you.",
+      introText:
+        "Hi Chakkoo 💖 I made this little game for you — from far away — because even distance couldn’t stop me from doing something special for you.",
 
-  // Level 1
-  q1: {
-    text: "When did we start talking to each other?",
-    choices: [
-      { text: "December 22 (last year)", correct: true },
-      { text: "January 18", correct: false },
-      { text: "Valentine’s Day 😏", correct: false },
-      { text: "I pretend I forgot", correct: false }
-    ],
-    hint: "Hint: that day changed everything."
-  },
+      // Level 1
+      q1: {
+        text: "When did we start talking to each other?",
+        choices: [
+          { text: "December 22 (last year) ✅", correct: true },
+          { text: "January 18", correct: false },
+          { text: "Valentine’s Day 😏", correct: false },
+          { text: "I pretend I forgot 😅", correct: false }
+        ],
+        hint: "Hint: that day started everything."
+      },
 
-  // Level 2
-  q2: {
-    text: "What nickname do I call you?",
-    accepted: ["chakkoo", "chakku", "chakoo"],
-    skipReveal:
-      "It’s okay 😌 I call you Chakkoo because it somehow fits you perfectly — soft, silly, and special."
-  },
+      // Level 2
+      q2: {
+        text: "What nickname do I call you?",
+        accepted: ["chakkoo","chakku","chakoo"],
+        skipReveal:
+          "It’s okay 😌 I call you Chakkoo because it somehow fits you perfectly — soft, silly, and special."
+      },
 
-  // Cards
-  cards: [
-    "Remember how I grilled you when we first talked and scared you off a little? 😅 Now you grill me daily — and I kinda deserve it 🔥",
-    "January 18, meeting you at your home felt calm, warm, and real. I still think about that day.",
-    "Even from different countries, you somehow became my comfort person 💞"
-  ],
+      // Level 3
+      q3: {
+        text: "Who started the grilling first?",
+        choices: [
+          { text: "Chakkoo 😇", correct: false },
+          { text: "Abhiii 😈", correct: true },
+          { text: "Mutual destruction 🔥", correct: false },
+          { text: "Let’s not talk about this 😭", correct: false }
+        ],
+        reveal:
+          "Okay yes… I grilled you first and it put you off a little 😅 But you stayed — and now you grill me back daily. Honestly? I love this version of us. 🔥💗"
+      },
 
-  final: {
-    phrase: "chakkoo forever",
-    hint: 'Hint: type “chakkoo ____”'
-  },
+      // Would you rather
+      wyr: [
+        {
+          a: "Endless video calls 📞",
+          b: "One long hug right now 🤍",
+          reveal: "One day soon, it won’t be a choice. We’ll get both."
+        },
+        {
+          a: "I stop grilling you forever 😇",
+          b: "You keep grilling me forever 😌🔥",
+          reveal: "We both know you’re choosing B 😭 (and I’m okay with that)"
+        },
+        {
+          a: "A fancy date night ✨",
+          b: "A simple day together doing nothing 🫶",
+          reveal: "Anything with you becomes my favorite day."
+        }
+      ],
 
-  proposalText:
-    "From December 22 to January 18 and every day after — you slowly became my favorite part of the day. Distance didn’t stop us, and I don’t want anything to stop us either."
-};
-    // =====================================
+      // Memory cards
+      cards: [
+        "December 22 wasn’t just a date. It was the start of you becoming part of my day — and then my favorite part.",
+        "January 18 at your home felt calm, warm, and real. I still replay that day in my head sometimes.",
+        "The grilling era: I started it like a fool 😅 and you mastered it like a pro. Now it’s our love language."
+      ],
 
-    const screens = ["s0","s1","s2","s3","s4"].map(id => document.getElementById(id));
+      final: {
+        phrase: "chakkoo forever",
+        hint: 'Hint: type “chakkoo ____”'
+      },
+
+      proposalText:
+        "From December 22 to January 18 and every day after — you became my favorite person. Even across countries, you feel close. I don’t want distance or time to stop us. I want a lifetime with you."
+    };
+    // ==============================
+
+    const screens = ["s0","s1","s2","s3","s4","s5","s6"].map(id => document.getElementById(id));
     const bar = document.getElementById("bar");
     const stepLabel = document.getElementById("stepLabel");
 
-    let step = 0; // 0..4
+    let step = 0; // 0..6
+    let grill = 0; // 0..10
+
+    function normalize(s){ return (s||"").trim().toLowerCase(); }
 
     function showStep(n){
       step = n;
       screens.forEach((s,i)=>s.classList.toggle("active", i===n));
-      const pct = (n/4)*100;
+      const pct = (n/6)*100;
       bar.style.width = pct + "%";
-      stepLabel.textContent = `Step ${n+1}/5`;
+      stepLabel.textContent = `Step ${n+1}/7`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function bumpGrill(){
+      grill = Math.min(10, grill + 1);
+      document.getElementById("grillLevel").textContent = grill;
+      document.getElementById("grillBar").style.width = (grill * 10) + "%";
+      const msg = document.getElementById("grillMsg");
+      if(grill <= 2) msg.textContent = "Status: peaceful… for now 😌";
+      else if(grill <= 5) msg.textContent = "Status: slight grilling… watch out 😅";
+      else if(grill <= 8) msg.textContent = "Status: intense grilling 🔥😭";
+      else msg.textContent = "Status: you’re roasting Abhiii to perfection 💀🔥";
     }
 
     // Set names/text
@@ -300,15 +411,17 @@
 
     // Level 1 setup
     document.getElementById("q1Text").textContent = CONFIG.q1.text;
-    document.getElementById("q1Hint").textContent = CONFIG.q1.hint;
-
     const q1Choices = document.getElementById("q1Choices");
+    const q1Hint = document.getElementById("q1Hint");
+    q1Hint.textContent = CONFIG.q1.hint;
+
     function renderQ1(){
       q1Choices.innerHTML = "";
+      q1Hint.textContent = CONFIG.q1.hint;
       CONFIG.q1.choices.forEach((c) => {
         const b = document.createElement("button");
         b.className = "choice";
-        b.textContent = c.text;
+        b.textContent = c.text.replace(" ✅","");
         b.addEventListener("click", () => {
           [...q1Choices.querySelectorAll("button")].forEach(x => x.disabled = true);
           if(c.correct){
@@ -316,7 +429,8 @@
             setTimeout(()=>showStep(2), 550);
           } else {
             b.classList.add("wrong");
-            document.getElementById("q1Hint").textContent = "Nope 😄 Try again (hit Back and re-enter).";
+            bumpGrill();
+            q1Hint.textContent = "Nope 😄 Try again (hit Back and re-enter).";
           }
         });
         q1Choices.appendChild(b);
@@ -324,18 +438,10 @@
     }
     renderQ1();
 
-    // Buttons
-    document.getElementById("startBtn").onclick = () => showStep(1);
-    document.getElementById("back1").onclick = () => { renderQ1(); showStep(0); };
-    document.getElementById("back2").onclick = () => showStep(1);
-    document.getElementById("back3").onclick = () => showStep(2);
-
-    // Level 2 logic
+    // Level 2 setup
     document.getElementById("q2Text").textContent = CONFIG.q2.text;
     const q2Input = document.getElementById("q2Input");
     const q2Feedback = document.getElementById("q2Feedback");
-
-    function normalize(s){ return (s||"").trim().toLowerCase(); }
 
     document.getElementById("q2Submit").onclick = () => {
       const val = normalize(q2Input.value);
@@ -345,6 +451,7 @@
         q2Feedback.style.color = "rgba(77,255,181,.9)";
         setTimeout(()=>showStep(3), 500);
       } else {
+        bumpGrill();
         q2Feedback.textContent = "Not quite 😅 Try spelling it the way you like (or hit “I forgot”).";
         q2Feedback.style.color = "rgba(255,255,255,.72)";
       }
@@ -352,31 +459,105 @@
 
     document.getElementById("q2Skip").onclick = () => {
       q2Feedback.textContent = CONFIG.q2.skipReveal;
-      q2Feedback.style.color = "rgba(255,255,255,.78)";
-      setTimeout(()=>showStep(3), 700);
+      q2Feedback.style.color = "rgba(255,255,255,.80)";
+      setTimeout(()=>showStep(3), 650);
     };
 
-    // Level 3 cards
-    const reveal = document.getElementById("cardReveal");
+    // Level 3 grilling
+    const q3Choices = document.getElementById("q3Choices");
+    const q3Reveal = document.getElementById("q3Reveal");
+    const toWYR = document.getElementById("toWouldYouRather");
+
+    function renderQ3(){
+      q3Choices.innerHTML = "";
+      q3Reveal.style.display = "none";
+      q3Reveal.textContent = "";
+      toWYR.disabled = true;
+
+      CONFIG.q3.choices.forEach(c => {
+        const b = document.createElement("button");
+        b.className = "choice";
+        b.textContent = c.text;
+        b.addEventListener("click", () => {
+          [...q3Choices.querySelectorAll("button")].forEach(x => x.disabled = true);
+          if(c.correct){
+            b.classList.add("correct");
+            q3Reveal.style.display = "block";
+            q3Reveal.textContent = CONFIG.q3.reveal;
+            toWYR.disabled = false;
+          } else {
+            b.classList.add("wrong");
+            bumpGrill();
+            q3Reveal.style.display = "block";
+            q3Reveal.textContent = "LMAO 😭 try again… we both know the truth.";
+            // allow retry by going back
+          }
+        });
+        q3Choices.appendChild(b);
+      });
+    }
+    renderQ3();
+
+    // Level 4 WYR
+    const wyrChoices = document.getElementById("wyrChoices");
+    const wyrReveal = document.getElementById("wyrReveal");
+    const toMemory = document.getElementById("toMemoryCard");
+
+    let wyrIndex = 0;
+
+    function renderWYR(){
+      wyrChoices.innerHTML = "";
+      wyrReveal.style.display = "none";
+      wyrReveal.textContent = "";
+      toMemory.disabled = true;
+
+      const item = CONFIG.wyr[wyrIndex % CONFIG.wyr.length];
+      const a = document.createElement("button");
+      a.className = "choice";
+      a.textContent = "A) " + item.a;
+
+      const b = document.createElement("button");
+      b.className = "choice";
+      b.textContent = "B) " + item.b;
+
+      function choose(){
+        wyrReveal.style.display = "block";
+        wyrReveal.textContent = item.reveal;
+        toMemory.disabled = false;
+      }
+
+      a.addEventListener("click", () => { choose(); });
+      b.addEventListener("click", () => { choose(); });
+
+      wyrChoices.appendChild(a);
+      wyrChoices.appendChild(b);
+    }
+    renderWYR();
+
+    // Level 5 memory cards
+    const cardReveal = document.getElementById("cardReveal");
     const toFinal = document.getElementById("toFinal");
+    function resetCards(){
+      cardReveal.style.display = "none";
+      cardReveal.textContent = "";
+      toFinal.disabled = true;
+    }
+    resetCards();
 
     document.querySelectorAll("[data-card]").forEach(btn => {
       btn.addEventListener("click", () => {
         const idx = Number(btn.getAttribute("data-card"));
-        reveal.style.display = "block";
-        reveal.textContent = CONFIG.cards[idx] || "I love you.";
+        cardReveal.style.display = "block";
+        cardReveal.textContent = CONFIG.cards[idx] || "I love you.";
         toFinal.disabled = false;
       });
     });
 
-    toFinal.onclick = () => showStep(4);
-
-    // Final door
+    // Final
     const finalInput = document.getElementById("finalInput");
     const finalFeedback = document.getElementById("finalFeedback");
     const finalReveal = document.getElementById("finalReveal");
     document.getElementById("proposalText").textContent = CONFIG.proposalText;
-
     finalInput.placeholder = CONFIG.final.hint;
 
     document.getElementById("finalSubmit").onclick = () => {
@@ -387,28 +568,64 @@
         finalReveal.style.display = "block";
         burstHearts();
       } else {
+        bumpGrill();
         finalFeedback.textContent = "Wrong phrase 😄 " + CONFIG.final.hint;
         finalFeedback.style.color = "rgba(255,255,255,.75)";
       }
     };
 
+    // Navigation buttons
+    document.getElementById("startBtn").onclick = () => showStep(1);
+
+    document.getElementById("back1").onclick = () => { renderQ1(); showStep(0); };
+    document.getElementById("back2").onclick = () => { showStep(1); };
+    document.getElementById("back3").onclick = () => { renderQ3(); showStep(2); };
+
+    document.getElementById("toWouldYouRather").onclick = () => {
+      wyrIndex = 0;
+      renderWYR();
+      showStep(4);
+    };
+
+    document.getElementById("back4").onclick = () => { showStep(3); };
+
+    document.getElementById("toMemoryCard").onclick = () => {
+      resetCards();
+      showStep(5);
+    };
+
+    document.getElementById("back5").onclick = () => { showStep(4); };
+
+    document.getElementById("toFinal").onclick = () => showStep(6);
+
     document.getElementById("restart").onclick = () => {
+      // reset state
+      grill = 0;
+      document.getElementById("grillLevel").textContent = grill;
+      document.getElementById("grillBar").style.width = "0%";
+      document.getElementById("grillMsg").textContent = "Status: peaceful… for now 😌";
+
       q2Input.value = "";
       q2Feedback.textContent = "";
-      reveal.style.display = "none";
-      reveal.textContent = "";
-      toFinal.disabled = true;
+
+      renderQ1();
+      renderQ3();
+
+      wyrIndex = 0;
+      renderWYR();
+
+      resetCards();
+
       finalInput.value = "";
       finalFeedback.textContent = "";
       finalReveal.style.display = "none";
-      document.getElementById("q1Hint").textContent = CONFIG.q1.hint;
-      renderQ1();
+
       showStep(0);
     };
 
     function burstHearts(){
-      const emojis = ["💘","💗","💞","💝","✨","🌙"];
-      for(let i=0;i<28;i++){
+      const emojis = ["💘","💗","💞","💝","✨","🌙","🔥"];
+      for(let i=0;i<30;i++){
         const s = document.createElement("div");
         s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
         s.style.position = "fixed";
