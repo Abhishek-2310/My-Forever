@@ -165,7 +165,7 @@
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.10);
     }
-    .checkItem input[type="checkbox"]{ width:18px; height:18px; accent-color: var(--accent); }
+    .checkItem input[type="radio"]{ width:18px; height:18px; accent-color: var(--accent); }
     .checkItem label{ cursor:pointer; font-weight:650; }
 
     /* Countdown timer */
@@ -207,6 +207,46 @@
       background: rgba(77,255,181,.10);
       transform: translateY(-1px);
     }
+  
+    /* Easter Egg */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index: 10000;
+    }
+    .overlay.show{ display:flex; }
+    .modal{
+      width: min(560px, 100%);
+      border-radius: 22px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 20px 80px rgba(0,0,0,.55);
+      position: relative;
+      overflow:hidden;
+    }
+    .modal h2{
+      margin: 6px 0 6px;
+      font-size: clamp(22px, 3vw, 30px);
+    }
+    .modal p{ color: rgba(255,255,255,.82); }
+    .modal .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,77,141,.14);
+      border:1px solid rgba(255,77,141,.30);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
   </style>
 </head>
 <body>
@@ -395,9 +435,7 @@
           <p id="proposalText" style="color:rgba(255,255,255,.88);"></p>
           <div class="bigQuestion">Will you be mine forever?</div>
           <div class="tiny" style="margin-top:8px; color:rgba(255,255,255,.85);">(please say yes)</div>
-          <p class="tiny" style="margin-top:10px;">
-            (If you say yes, I’m ready to be grilled for life 😌🔥)
-          </p>
+          
         </div>
 
         <div class="btnrow">
@@ -410,6 +448,26 @@
       Made with ❤️ from <span id="footerYourName"></span>
     </p>
   </div>
+
+
+  <!-- Hidden Easter Egg (appears when grill meter maxes) -->
+  <div class="overlay" id="eggOverlay" aria-hidden="true">
+    <div class="modal">
+      <div class="pill">🥵 Grill Meter Maxed</div>
+      <h2>Okay okay… you WIN 😭🔥</h2>
+      <p>
+        You officially roasted Abhiii to perfection.
+        As punishment, I owe you: <b>one long hug</b>, <b>one forehead kiss</b>, and <b>unlimited “sorry baby”</b>.
+      </p>
+      <p class="tiny" style="margin-top:10px;">
+        Secret unlock: you’re my favorite chaos. 💗
+      </p>
+      <div class="btnrow">
+        <button class="primary" id="eggClose">Aww okay 😌</button>
+      </div>
+    </div>
+  </div>
+
 
   <script src="./config.js"></script>
 
@@ -429,6 +487,9 @@
     let step = 0;
     let grill = 0; // 0..10
     let wyrIndex = 0;
+
+    // easter egg
+    let eggShown = false;
 
     // countdown state
     let countdownTimer = null;
@@ -461,6 +522,10 @@
       grill = Math.min(10, grill + 1);
       document.getElementById("grillLevel").textContent = grill;
       document.getElementById("grillBar").style.width = (grill * 10) + "%";
+      if (grill >= 10 && !eggShown) {
+        eggShown = true;
+        showEasterEgg();
+      }
       const msg = document.getElementById("grillMsg");
       if(grill <= 2) msg.textContent = "Status: peaceful… for now 😌";
       else if(grill <= 5) msg.textContent = "Status: slight grilling… watch out 😅";
@@ -517,7 +582,7 @@
         const id = "q2_" + i;
 
         const cb = document.createElement("input");
-        cb.type = "checkbox";
+        cb.type = "radio"; cb.name = "q2nick";
         cb.id = id;
 
         const label = document.createElement("label");
@@ -585,8 +650,15 @@
         b.textContent = opt;
         b.addEventListener("click", () => {
           [...loveFirstChoices.querySelectorAll("button")].forEach(x => x.disabled = true);
+          if(opt === CONFIG.loveFirst.correct){
+            b.classList.add("correct");
+            loveFirstReveal.textContent = CONFIG.loveFirst.reveal;
+          } else {
+            b.classList.add("wrong");
+            bumpGrill();
+            loveFirstReveal.textContent = "Nice try 😅 but you know the truth.";
+          }
           loveFirstReveal.style.display = "block";
-          loveFirstReveal.textContent = (opt === CONFIG.loveFirst.options[0]) ? CONFIG.loveFirst.revealA : CONFIG.loveFirst.revealB;
           setTimeout(()=>showStep(4), 900);
         });
         loveFirstChoices.appendChild(b);
@@ -871,6 +943,27 @@
 
       showStep(0);
     };
+
+    
+    function showEasterEgg(){
+      const o = document.getElementById("eggOverlay");
+      if(!o) return;
+      o.classList.add("show");
+      o.setAttribute("aria-hidden","false");
+      // tiny celebration
+      burstHearts();
+    }
+
+    // close egg
+    const eggCloseBtn = document.getElementById("eggClose");
+    if (eggCloseBtn){
+      eggCloseBtn.onclick = () => {
+        const o = document.getElementById("eggOverlay");
+        o.classList.remove("show");
+        o.setAttribute("aria-hidden","true");
+      };
+    }
+
 
     function burstHearts(){
       const emojis = ["💘","💗","💞","💝","✨","🌙","🔥"];
