@@ -606,26 +606,9 @@
     }
 
     document.getElementById("q2Continue").onclick = () => {
-      const picks = getQ2Picks();
-      const hasAll = picks.includes("all of the above");
-      const hasNone = picks.includes("none of the above");
-
-      let line = "";
-      if(hasAll && !hasNone){
-        line = "All of the above?! 😭❤️ okay you win. " + CONFIG.q2.revealLine;
-      } else if(hasNone && !hasAll){
-        line = "None of the above?? 😭 fine… I’ll just call you *mine* then. " + CONFIG.q2.revealLine;
-      } else if(hasAll && hasNone){
-        line = "Both ‘all’ and ‘none’? You’re chaos 😭🔥 " + CONFIG.q2.revealLine;
-      } else if(picks.length === 0){
-        line = "You didn’t pick anything 😭 okay… I’ll pick for you: Chakkoo ❤️ " + CONFIG.q2.revealLine;
-      } else {
-        line = "Okay noted 😌✅ (" + picks.join(", ") + "). " + CONFIG.q2.revealLine;
-      }
-
+      // No right answer here 😌
       q2Reveal.style.display = "block";
-      q2Reveal.textContent = line;
-
+      q2Reveal.textContent = CONFIG.q2.revealLine;
       setTimeout(()=>showStep(3), 900);
     };
 
