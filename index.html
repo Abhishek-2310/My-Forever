@@ -355,6 +355,7 @@
         </div>
         <div class="btnrow">
           <button class="primary" id="toCountdown" disabled>Continue</button>
+          <button class="ghost" id="wyrNext" style="display:none;">Next one →</button>
           <button class="ghost" id="back5">Back</button>
         </div>
       </section>
@@ -704,6 +705,17 @@
     const wyrChoices = document.getElementById("wyrChoices");
     const wyrReveal = document.getElementById("wyrReveal");
     const toCountdown = document.getElementById("toCountdown");
+    const wyrNext = document.getElementById("wyrNext");
+
+    function resetWYR(){
+      wyrIndex = 0;
+      toCountdown.disabled = true;
+      if (wyrNext){
+        wyrNext.style.display = "none";
+        wyrNext.onclick = null;
+      }
+      renderWYR();
+    }
 
     function renderWYR(){
       wyrChoices.innerHTML = "";
@@ -722,9 +734,31 @@
       b.textContent = "B) " + item.b;
 
       function choose(){
+        // lock choices
+        [...wyrChoices.querySelectorAll("button")].forEach(x => x.disabled = true);
+
         wyrReveal.style.display = "block";
         wyrReveal.textContent = item.reveal;
-        toCountdown.disabled = false;
+
+        const last = (wyrIndex >= CONFIG.wyr.length - 1);
+
+        if (!last){
+          // show "Next one" to cycle through remaining WYR prompts
+          if (wyrNext){
+            wyrNext.style.display = "inline-block";
+            wyrNext.onclick = () => {
+              wyrIndex += 1;
+              if (wyrNext) wyrNext.style.display = "none";
+              renderWYR();
+            };
+          }
+          // keep Continue disabled until all WYR questions shown
+          toCountdown.disabled = true;
+        } else {
+          // all done → allow Continue
+          toCountdown.disabled = false;
+          if (wyrNext) wyrNext.style.display = "none";
+        }
       }
 
       a.addEventListener("click", choose);
@@ -733,7 +767,7 @@
       wyrChoices.appendChild(a);
       wyrChoices.appendChild(b);
     }
-    renderWYR();
+    resetWYR();
 
     // ---------- Level 6: Countdown choice ----------
     const countdownPrompt = document.getElementById("countdownPrompt");
@@ -901,8 +935,7 @@
     document.getElementById("back4").onclick = () => { renderQ3(); showStep(3); };
 
     document.getElementById("toWouldYouRather").onclick = () => {
-      wyrIndex = 0;
-      renderWYR();
+      if (typeof resetWYR === "function") resetWYR();
       showStep(5);
     };
     document.getElementById("back5").onclick = () => { showStep(4); };
@@ -933,7 +966,7 @@
       renderQ2();
       renderLoveFirst();
       renderQ3();
-      renderWYR();
+      if (typeof resetWYR === "function") resetWYR();
       renderWheel();
       resetCards();
 
