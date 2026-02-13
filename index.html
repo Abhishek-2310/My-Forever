@@ -119,7 +119,7 @@
       font-size:16px;
     }
 
-    /* Grill meter (now visible on all screens) */
+    /* Grill meter (persistent) */
     .meterWrap{
       margin-top:14px;
       padding:12px;
@@ -167,6 +167,46 @@
     }
     .checkItem input[type="checkbox"]{ width:18px; height:18px; accent-color: var(--accent); }
     .checkItem label{ cursor:pointer; font-weight:650; }
+
+    /* Countdown timer */
+    .timerRow{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      margin-top:12px;
+    }
+    .timerPill{
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,77,141,.14);
+      border:1px solid rgba(255,77,141,.30);
+      font-weight:800;
+    }
+
+    /* Wheel list */
+    .wheelBox{
+      margin-top:12px;
+      padding:12px;
+      border-radius:16px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .wheelItem{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+      margin-top:10px;
+      transition: transform .08s ease, border-color .2s ease, background .2s ease;
+    }
+    .wheelItem.active{
+      border-color: rgba(77,255,181,.55);
+      background: rgba(77,255,181,.10);
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 <body>
@@ -177,7 +217,7 @@
       <div class="topline">
         <div class="badge">💌 Love Quest</div>
         <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
-        <div class="badge" id="stepLabel">Step 1/7</div>
+        <div class="badge" id="stepLabel">Step 1/9</div>
       </div>
 
       <!-- Grill meter (persistent) -->
@@ -238,9 +278,22 @@
         </div>
       </section>
 
-      <!-- Screen 3: Grill joke -->
+      <!-- Screen 3: Love first -->
       <section class="screen" id="s3">
-        <h1>Level 3: Who Started The Grilling?</h1>
+        <h1>Level 3: Love First 💗</h1>
+        <p id="loveFirstText"></p>
+        <div class="qbox">
+          <div class="choices" id="loveFirstChoices"></div>
+          <div class="note" id="loveFirstReveal" style="display:none;"></div>
+        </div>
+        <div class="btnrow">
+          <button class="ghost" id="back3">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 4: Grill joke -->
+      <section class="screen" id="s4">
+        <h1>Level 4: Who Started The Grilling?</h1>
         <p>Let’s be honest 😅</p>
         <div class="qbox">
           <div class="choices" id="q3Choices"></div>
@@ -248,27 +301,66 @@
         </div>
         <div class="btnrow">
           <button class="primary" id="toWouldYouRather" disabled>Continue</button>
-          <button class="ghost" id="back3">Back</button>
+          <button class="ghost" id="back4">Back</button>
         </div>
       </section>
 
-      <!-- Screen 4: Would you rather -->
-      <section class="screen" id="s4">
-        <h1>Level 4: Would You Rather?</h1>
+      <!-- Screen 5: Would you rather -->
+      <section class="screen" id="s5">
+        <h1>Level 5: Would You Rather?</h1>
         <p>No wrong answers. Just vibes.</p>
         <div class="qbox">
           <div class="choices" id="wyrChoices"></div>
           <div class="note" id="wyrReveal" style="display:none;"></div>
         </div>
         <div class="btnrow">
-          <button class="primary" id="toMemoryCard" disabled>Continue</button>
-          <button class="ghost" id="back4">Back</button>
+          <button class="primary" id="toCountdown" disabled>Continue</button>
+          <button class="ghost" id="back5">Back</button>
         </div>
       </section>
 
-      <!-- Screen 5: Memory card -->
-      <section class="screen" id="s5">
-        <h1>Level 5: Pick a Memory</h1>
+      <!-- Screen 6: Countdown choice -->
+      <section class="screen" id="s6">
+        <h1>Level 6: Countdown Choice ⏳</h1>
+        <p id="countdownPrompt"></p>
+
+        <div class="qbox">
+          <div class="timerRow">
+            <div class="tiny">Timer</div>
+            <div class="timerPill"><span id="timerLeft"></span>s</div>
+          </div>
+
+          <div class="choices" id="countdownChoices"></div>
+          <div class="note" id="countdownReveal" style="display:none;"></div>
+        </div>
+
+        <div class="btnrow">
+          <button class="ghost" id="back6">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 7: Spin-the-wheel -->
+      <section class="screen" id="s7">
+        <h1>Level 7: Spin-the-Wheel 🎡</h1>
+        <p id="wheelPrompt"></p>
+
+        <div class="qbox">
+          <div class="wheelBox" id="wheelList"></div>
+          <div class="btnrow">
+            <button class="primary" id="spinBtn">Spin</button>
+            <button class="ghost" id="wheelContinue" disabled>Continue</button>
+          </div>
+          <div class="note" id="wheelReveal" style="display:none;"></div>
+        </div>
+
+        <div class="btnrow">
+          <button class="ghost" id="back7">Back</button>
+        </div>
+      </section>
+
+      <!-- Screen 8: Memory card -->
+      <section class="screen" id="s8">
+        <h1>Level 8: Pick a Memory</h1>
         <p>Choose one. It reveals something I’m holding close.</p>
         <div class="qbox">
           <div class="choices">
@@ -280,12 +372,12 @@
         </div>
         <div class="btnrow">
           <button class="primary" id="toFinal" disabled>Final Door</button>
-          <button class="ghost" id="back5">Back</button>
+          <button class="ghost" id="back8">Back</button>
         </div>
       </section>
 
-      <!-- Screen 6: final -->
-      <section class="screen" id="s6">
+      <!-- Screen 9: final -->
+      <section class="screen" id="s9">
         <h1>Final Door 🔐</h1>
         <p>Type the secret phrase to open it:</p>
         <div class="qbox">
@@ -301,7 +393,8 @@
         <div class="final" id="finalReveal" style="display:none;">
           <h1 style="margin-top:0;">My love… 💍</h1>
           <p id="proposalText" style="color:rgba(255,255,255,.88);"></p>
-          <div class="bigQuestion">Will you marry me?</div>
+          <div class="bigQuestion">Will you be mine forever?</div>
+          <div class="tiny" style="margin-top:8px; color:rgba(255,255,255,.85);">(please say yes)</div>
           <p class="tiny" style="margin-top:10px;">
             (If you say yes, I’m ready to be grilled for life 😌🔥)
           </p>
@@ -327,23 +420,41 @@
       throw new Error("CONFIG missing");
     }
 
-    const screens = ["s0","s1","s2","s3","s4","s5","s6"].map(id => document.getElementById(id));
+    const screenIds = ["s0","s1","s2","s3","s4","s5","s6","s7","s8","s9"];
+    const screens = screenIds.map(id => document.getElementById(id));
     const bar = document.getElementById("bar");
     const stepLabel = document.getElementById("stepLabel");
+    const lastIndex = screens.length - 1;
 
-    let step = 0; // 0..6
+    let step = 0;
     let grill = 0; // 0..10
     let wyrIndex = 0;
+
+    // countdown state
+    let countdownTimer = null;
+    let countdownRemaining = 0;
+    let countdownLocked = false;
+
+    // wheel state
+    let wheelSpinning = false;
+    let wheelIndex = 0;
 
     function normalize(s){ return (s||"").trim().toLowerCase(); }
 
     function showStep(n){
+      // stop countdown if navigating away
+      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+      countdownLocked = false;
+
       step = n;
       screens.forEach((s,i)=>s.classList.toggle("active", i===n));
-      const pct = (n/6)*100;
+      const pct = (n/lastIndex)*100;
       bar.style.width = pct + "%";
-      stepLabel.textContent = `Step ${n+1}/7`;
+      stepLabel.textContent = `Step ${n+1}/${screens.length}`;
       window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // start countdown when entering countdown screen
+      if (screenIds[n] === "s6") startCountdown();
     }
 
     function bumpGrill(){
@@ -362,7 +473,7 @@
     document.getElementById("introText").textContent = CONFIG.introText;
     document.getElementById("footerYourName").textContent = CONFIG.yourName;
 
-    // Level 1
+    // ---------- Level 1 ----------
     document.getElementById("q1Text").textContent = CONFIG.q1.text;
     const q1Choices = document.getElementById("q1Choices");
     const q1Hint = document.getElementById("q1Hint");
@@ -390,9 +501,8 @@
     }
     renderQ1();
 
-    // Level 2 (Nickname checklist)
+    // ---------- Level 2 (Nickname checklist) ----------
     document.getElementById("q2Text").textContent = CONFIG.q2.text;
-
     const q2Checklist = document.getElementById("q2Checklist");
     const q2Reveal = document.getElementById("q2Reveal");
 
@@ -404,8 +514,8 @@
       CONFIG.q2.options.forEach((opt, i) => {
         const row = document.createElement("div");
         row.className = "checkItem";
-
         const id = "q2_" + i;
+
         const cb = document.createElement("input");
         cb.type = "checkbox";
         cb.id = id;
@@ -459,7 +569,32 @@
       q2Reveal.textContent = "";
     };
 
-    // Level 3
+    // ---------- Level 3: who said I love you first ----------
+    document.getElementById("loveFirstText").textContent = CONFIG.loveFirst.text;
+    const loveFirstChoices = document.getElementById("loveFirstChoices");
+    const loveFirstReveal = document.getElementById("loveFirstReveal");
+
+    function renderLoveFirst(){
+      loveFirstChoices.innerHTML = "";
+      loveFirstReveal.style.display = "none";
+      loveFirstReveal.textContent = "";
+
+      CONFIG.loveFirst.options.forEach(opt => {
+        const b = document.createElement("button");
+        b.className = "choice";
+        b.textContent = opt;
+        b.addEventListener("click", () => {
+          [...loveFirstChoices.querySelectorAll("button")].forEach(x => x.disabled = true);
+          loveFirstReveal.style.display = "block";
+          loveFirstReveal.textContent = (opt === CONFIG.loveFirst.options[0]) ? CONFIG.loveFirst.revealA : CONFIG.loveFirst.revealB;
+          setTimeout(()=>showStep(4), 900);
+        });
+        loveFirstChoices.appendChild(b);
+      });
+    }
+    renderLoveFirst();
+
+    // ---------- Level 4: grilling ----------
     const q3Choices = document.getElementById("q3Choices");
     const q3Reveal = document.getElementById("q3Reveal");
     const toWYR = document.getElementById("toWouldYouRather");
@@ -493,16 +628,16 @@
     }
     renderQ3();
 
-    // Level 4 (Would you rather)
+    // ---------- Level 5: WYR ----------
     const wyrChoices = document.getElementById("wyrChoices");
     const wyrReveal = document.getElementById("wyrReveal");
-    const toMemory = document.getElementById("toMemoryCard");
+    const toCountdown = document.getElementById("toCountdown");
 
     function renderWYR(){
       wyrChoices.innerHTML = "";
       wyrReveal.style.display = "none";
       wyrReveal.textContent = "";
-      toMemory.disabled = true;
+      toCountdown.disabled = true;
 
       const item = CONFIG.wyr[wyrIndex % CONFIG.wyr.length];
 
@@ -517,7 +652,7 @@
       function choose(){
         wyrReveal.style.display = "block";
         wyrReveal.textContent = item.reveal;
-        toMemory.disabled = false;
+        toCountdown.disabled = false;
       }
 
       a.addEventListener("click", choose);
@@ -528,7 +663,121 @@
     }
     renderWYR();
 
-    // Level 5 (Memory cards)
+    // ---------- Level 6: Countdown choice ----------
+    const countdownPrompt = document.getElementById("countdownPrompt");
+    const timerLeft = document.getElementById("timerLeft");
+    const countdownChoices = document.getElementById("countdownChoices");
+    const countdownReveal = document.getElementById("countdownReveal");
+
+    countdownPrompt.textContent = CONFIG.countdown.prompt;
+
+    function renderCountdownChoices(){
+      countdownChoices.innerHTML = "";
+      countdownReveal.style.display = "none";
+      countdownReveal.textContent = "";
+      countdownLocked = false;
+
+      CONFIG.countdown.options.forEach(opt => {
+        const b = document.createElement("button");
+        b.className = "choice";
+        b.textContent = opt;
+        b.addEventListener("click", () => finalizeCountdownChoice(opt));
+        countdownChoices.appendChild(b);
+      });
+    }
+
+    function startCountdown(){
+      renderCountdownChoices();
+      countdownRemaining = Number(CONFIG.countdown.seconds || 6);
+      timerLeft.textContent = countdownRemaining;
+
+      if (countdownTimer) clearInterval(countdownTimer);
+      countdownTimer = setInterval(() => {
+        countdownRemaining -= 1;
+        timerLeft.textContent = Math.max(0, countdownRemaining);
+
+        if (countdownRemaining <= 0) {
+          clearInterval(countdownTimer);
+          countdownTimer = null;
+          if (!countdownLocked) {
+            // auto-pick
+            const opt = CONFIG.countdown.options[Math.floor(Math.random() * CONFIG.countdown.options.length)];
+            finalizeCountdownChoice(opt, true);
+          }
+        }
+      }, 1000);
+    }
+
+    function finalizeCountdownChoice(opt, auto=false){
+      if (countdownLocked) return;
+      countdownLocked = true;
+      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+
+      [...countdownChoices.querySelectorAll("button")].forEach(x => x.disabled = true);
+      countdownReveal.style.display = "block";
+      countdownReveal.textContent = (auto ? "Time’s up 😭 I picked for you: " : "You picked: ") + opt + " — and I love that choice. 💗";
+
+      setTimeout(()=>showStep(7), 1100);
+    }
+
+    // ---------- Level 7: Wheel ----------
+    const wheelPrompt = document.getElementById("wheelPrompt");
+    const wheelList = document.getElementById("wheelList");
+    const spinBtn = document.getElementById("spinBtn");
+    const wheelContinue = document.getElementById("wheelContinue");
+    const wheelReveal = document.getElementById("wheelReveal");
+
+    wheelPrompt.textContent = CONFIG.wheel.prompt;
+
+    function renderWheel(){
+      wheelList.innerHTML = "";
+      wheelReveal.style.display = "none";
+      wheelReveal.textContent = "";
+      wheelContinue.disabled = true;
+      wheelIndex = 0;
+
+      CONFIG.wheel.options.forEach((opt, i) => {
+        const div = document.createElement("div");
+        div.className = "wheelItem" + (i===0 ? " active" : "");
+        div.textContent = opt;
+        wheelList.appendChild(div);
+      });
+    }
+    renderWheel();
+
+    function setWheelActive(i){
+      const items = [...wheelList.querySelectorAll(".wheelItem")];
+      items.forEach((el, idx) => el.classList.toggle("active", idx === i));
+    }
+
+    spinBtn.onclick = async () => {
+      if (wheelSpinning) return;
+      wheelSpinning = true;
+      wheelReveal.style.display = "none";
+      wheelReveal.textContent = "";
+      wheelContinue.disabled = true;
+
+      const items = CONFIG.wheel.options;
+      const spins = 18 + Math.floor(Math.random()*10);
+      let i = wheelIndex;
+
+      for (let t = 0; t < spins; t++){
+        i = (i + 1) % items.length;
+        setWheelActive(i);
+        const delay = 60 + t*10; // slows down
+        await new Promise(r => setTimeout(r, delay));
+      }
+
+      wheelIndex = i;
+      wheelReveal.style.display = "block";
+      wheelReveal.textContent = "It picked: " + items[i] + " 😌✅";
+      wheelContinue.disabled = false;
+      wheelSpinning = false;
+    };
+
+    wheelContinue.onclick = () => showStep(8);
+
+    // ---------- Level 8: Memory cards ----------
     const cardReveal = document.getElementById("cardReveal");
     const toFinal = document.getElementById("toFinal");
 
@@ -548,9 +797,9 @@
       });
     });
 
+    // ---------- Final ----------
     document.getElementById("proposalText").textContent = CONFIG.proposalText;
 
-    // Final
     const finalInput = document.getElementById("finalInput");
     const finalFeedback = document.getElementById("finalFeedback");
     const finalReveal = document.getElementById("finalReveal");
@@ -571,29 +820,36 @@
       }
     };
 
-    // Navigation
+    // ---------- Navigation ----------
     document.getElementById("startBtn").onclick = () => showStep(1);
 
     document.getElementById("back1").onclick = () => { renderQ1(); showStep(0); };
     document.getElementById("back2").onclick = () => { renderQ2(); showStep(1); };
-    document.getElementById("back3").onclick = () => { renderQ3(); showStep(2); };
+    document.getElementById("back3").onclick = () => { renderLoveFirst(); showStep(2); };
+    document.getElementById("back4").onclick = () => { renderQ3(); showStep(3); };
 
     document.getElementById("toWouldYouRather").onclick = () => {
       wyrIndex = 0;
       renderWYR();
-      showStep(4);
-    };
-    document.getElementById("back4").onclick = () => { showStep(3); };
-
-    document.getElementById("toMemoryCard").onclick = () => {
-      resetCards();
       showStep(5);
     };
     document.getElementById("back5").onclick = () => { showStep(4); };
 
-    document.getElementById("toFinal").onclick = () => showStep(6);
+    document.getElementById("toCountdown").onclick = () => showStep(6);
+
+    document.getElementById("back6").onclick = () => { showStep(5); };
+
+    document.getElementById("back7").onclick = () => { renderWheel(); showStep(6); };
+
+    document.getElementById("back8").onclick = () => { resetCards(); showStep(7); };
+
+    document.getElementById("toFinal").onclick = () => showStep(9);
 
     document.getElementById("restart").onclick = () => {
+      // reset state
+      if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+      countdownLocked = false;
+
       grill = 0;
       document.getElementById("grillLevel").textContent = grill;
       document.getElementById("grillBar").style.width = "0%";
@@ -603,8 +859,10 @@
 
       renderQ1();
       renderQ2();
+      renderLoveFirst();
       renderQ3();
       renderWYR();
+      renderWheel();
       resetCards();
 
       finalInput.value = "";
