@@ -236,47 +236,47 @@
   <script>
     // ========= CUSTOMIZED FOR YOU =========
     const CONFIG = {
-      herName: "Chakara",          // shows on the first screen
-      yourName: "[Your Name]",     // put your name here
+  herName: "Chakkoo",
+  yourName: "Abhiii",
 
-      introText:
-        "I made you a tiny game from far away. Every level unlocks a little piece of us — and yes, there’s a final door 😌",
+  introText:
+    "Hi Chakkoo 💖 I made this little game for you — from far away — because even distance couldn’t stop me from doing something special for you.",
 
-      // Level 1 (multiple choice)
-      q1: {
-        text: "When did we start talking to each other?",
-        choices: [
-          { text: "December 22 (last year)", correct: true  },
-          { text: "January 18",              correct: false },
-          { text: "February 14",             correct: false },
-          { text: "I don’t remember 😅",      correct: false }
-        ],
-        hint: "Hint: it was a date that started everything."
-      },
+  // Level 1
+  q1: {
+    text: "When did we start talking to each other?",
+    choices: [
+      { text: "December 22 (last year)", correct: true },
+      { text: "January 18", correct: false },
+      { text: "Valentine’s Day 😏", correct: false },
+      { text: "I pretend I forgot", correct: false }
+    ],
+    hint: "Hint: that day changed everything."
+  },
 
-      // Level 2 (short answer)
-      q2: {
-        text: "What nickname do I call you?",
-        accepted: ["chakara", "chakkara", "chakraa"], // add variants if you use them
-        skipReveal: "It’s okay 😌 I call you that because it’s *you* — and it makes me smile every time."
-      },
+  // Level 2
+  q2: {
+    text: "What nickname do I call you?",
+    accepted: ["chakkoo", "chakku", "chakoo"],
+    skipReveal:
+      "It’s okay 😌 I call you Chakkoo because it somehow fits you perfectly — soft, silly, and special."
+  },
 
-      // Level 3 (cards)
-      cards: [
-        "Remember when I grilled you in the beginning and it put you off? 😅 Now you’ve been grilling me ever since… and honestly, I love it. 🔥",
-        "January 18 at your home wasn’t just a place — it felt like a moment I’ll keep forever. 🏡",
-        "Even with distance, you make it feel like we’re on the same side of the world. Always. 💞"
-      ],
+  // Cards
+  cards: [
+    "Remember how I grilled you when we first talked and scared you off a little? 😅 Now you grill me daily — and I kinda deserve it 🔥",
+    "January 18, meeting you at your home felt calm, warm, and real. I still think about that day.",
+    "Even from different countries, you somehow became my comfort person 💞"
+  ],
 
-      // Final phrase to open the proposal
-      final: {
-        phrase: "jan 18", // easy to type on mobile
-        hint: 'Hint: type the day we first met (example: "jan 18")'
-      },
+  final: {
+    phrase: "chakkoo forever",
+    hint: 'Hint: type “chakkoo ____”'
+  },
 
-      proposalText:
-        "From December 22 to every day after… you’ve become my favorite person. Even across countries, you’ve felt close — and I want the rest of my life to be this: choosing you, again and again."
-    };
+  proposalText:
+    "From December 22 to January 18 and every day after — you slowly became my favorite part of the day. Distance didn’t stop us, and I don’t want anything to stop us either."
+};
     // =====================================
 
     const screens = ["s0","s1","s2","s3","s4"].map(id => document.getElementById(id));
